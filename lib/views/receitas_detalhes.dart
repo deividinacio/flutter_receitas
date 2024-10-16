@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:loja_flutter/constants/app_styles.dart';
+import 'package:loja_flutter/models/receita_model.dart';
 
 class ReceitasDetalhes extends StatefulWidget {
   const ReceitasDetalhes({
   super.key, 
-  required this.description, 
-  required this.imgprod
+  required this.receita, 
+
   });
 
-  final String description;
-  final String imgprod;
+  final Receita receita;
+ 
 
   @override
   State<ReceitasDetalhes> createState() => _ReceitasDetalhesState();
@@ -25,13 +26,16 @@ class _ReceitasDetalhesState extends State<ReceitasDetalhes> {
         style: AppStyles.bigTitle,),
         ) ,
         body: Column(children: [
-          Text(widget.description, 
+          Text(widget.receita.strMeal, 
           style:  const TextStyle(
           color:  Color.fromARGB(255, 0, 0, 0),
           fontWeight: FontWeight.w700, 
           ),
           ),
-          Image.network(widget.imgprod),
+          Image.network(widget.receita.strMealThumb, 
+          width: 400,
+          ),
+          Text(widget.receita.strInstructions)
         ],
         ),
     );

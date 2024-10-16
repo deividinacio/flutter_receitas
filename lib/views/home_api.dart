@@ -89,8 +89,8 @@ class _HomeApiState extends State<HomeApi> {
               // mandando para pagina de detalhes da receita a description e imgprod
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) =>  ReceitasDetalhes(
-                  description: allReceitas[index].strMeal,
-                  imgprod: allReceitas[index].strMealThumb,
+                  receita: allReceitas[index],
+                 
                   ),
                 ),
               );  
