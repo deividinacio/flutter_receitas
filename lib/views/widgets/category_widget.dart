@@ -19,24 +19,32 @@ final Receita receita ;
     padding: const EdgeInsets.all(10),
     // height: 190, 
     // width: 195,
-    decoration: AppStyles.boxDecorationFlexible(18, const Color.fromARGB(50, 104, 110, 107),),
+    decoration: AppStyles.boxDecorationFlexible(8, const Color.fromARGB(50, 104, 110, 107),),
                // child: const Text('Dentro do container'),
       child: Column(
        children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(4.0),
-          child:  Image.network(receita.strMealThumb,
-          width: 140,
-          fit:BoxFit.cover,
-        ),
+          borderRadius: BorderRadius.circular(150.0),
+          child:  Padding(
+            padding: const EdgeInsets.all(9.0),
+            child: Image.network(receita.strMealThumb,
+            width: 125,
+            fit:BoxFit.cover,
+                    ),
+          ),
         ),
        
-        Text(receita.strMeal,
-        textAlign: TextAlign.center,
-        style: TextStyle(fontWeight: FontWeight.bold,
-        fontSize: 12,
-        fontFamily: "arial",
-        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(receita.strMeal,
+          maxLines: 2, // limita 2 linhas para mostrar
+          overflow: TextOverflow.ellipsis, // adiciona reticências caso o texto seja maior que o limite 
+          textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.bold,
+          fontSize: 12,
+          fontFamily: "arial",
+          ),
+          ),
         ),
         
        ],

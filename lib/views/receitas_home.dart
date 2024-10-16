@@ -70,7 +70,7 @@ class _ReceitasHomeState extends State<ReceitasHome> {
       body: SingleChildScrollView(
         child: Column(
         children: [
-        const Text("data"),
+       // const Text("data"),
         GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         primary: false,

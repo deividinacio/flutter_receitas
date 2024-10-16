@@ -29,8 +29,15 @@ class _ReceitasDetalhesState extends State<ReceitasDetalhes> {
         body: SingleChildScrollView(
           child: Column(children: [
             Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Image.network(widget.receita.strMealThumb, 
+              width: 250,
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Text(widget.receita.strMeal, 
+              child: Text(widget.receita.strMeal,
+              textAlign: TextAlign.center, 
               style:  const TextStyle(
               color:  Color.fromARGB(255, 0, 0, 0),
               fontWeight: FontWeight.w700, 
@@ -39,13 +46,14 @@ class _ReceitasDetalhesState extends State<ReceitasDetalhes> {
               ),
               ),
             ),
-            Image.network(widget.receita.strMealThumb, 
-            width: 250,
-            ),
             Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Text(widget.receita.strInstructions),
-            )
+              child: Text(widget.receita.strInstructions,
+              textAlign: TextAlign.justify,
+              ),
+            ),
+
+            Text('Ingrediente : ${widget.receita.strIngredient1}'),
           ],
           ),
         ),
