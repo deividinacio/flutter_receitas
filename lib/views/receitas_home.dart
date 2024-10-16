@@ -18,33 +18,37 @@ class _ReceitasHomeState extends State<ReceitasHome> {
   @override
   void initState() {
     
-    // chamada de api aqui
-   // print("inicio da tela");
+    // chamada da api aqui
+    getReceitas();
     super.initState();
   }
 
   List<Receita> allReceitas = [];
 
   getReceitas () async {
-    // Utilizar http  (pacote flutter),
-    // Acessar a API e consumir os dados 
-    // Mostrar na Tela...
+    // Utilizar http  (pacote flutter)
       String baseURL = "https://www.themealdb.com/api/json/v1/1/search.php?f=s";   //"https://www.themealdb.com/api/json/v1/1/lookup.php?i=53065";
-      final response = await http.get(Uri.parse(baseURL));
-      //  print(response.body);
+      
+      
+     try {
+        final response = await http.get(Uri.parse(baseURL));
 
-          // transformando em json para o app
+          if(response.statusCode == 200)
+          {
+            Map< String, dynamic> jsonData = json.decode(response.body);
+            List<dynamic> listaReceitas = jsonData['meals'];
+            allReceitas = listaReceitas.map((receita) => Receita.fromJson(receita)).toList();
 
-         Map< String, dynamic> jsonData = json.decode(response.body);
-       //  print(jsonData['meals']);
-
-        // List<dynamic> jsonData = json.decode(response.body);
-        // print(jsonData[0]);
-
-        List<dynamic> listaReceitas = jsonData['meals'];
-
+          } else {
+            print("Erro na consulta da API : ${response.statusCode}");
+          }
+     } catch (ex) {
+      print('Erro ao buscar receitas: $ex');
+     }
+      
+    
       setState(() {
-          allReceitas = listaReceitas.map((receita) => Receita.fromJson(receita)).toList();
+          allReceitas; //= listaReceitas.map((receita) => Receita.fromJson(receita)).toList();
         //print(allReceitas[0].strMeal);
       });
       
@@ -58,16 +62,20 @@ class _ReceitasHomeState extends State<ReceitasHome> {
       title: Text("Receitas Binárias", style:AppStyles.bigTitle),
       
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Text("data"),
-        onPressed: () async {
-          // temp chamar a api e pegar os dados 
-         await getReceitas();
+
+      // botão flutuante
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Text("data"),
+      //   onPressed: () async {
+        
+      //    await getReceitas();
           
-        }),
+      //   }),
 
       //SingleChildScrollView serve para dar a rolagem na tela 
-      body: SingleChildScrollView(
+      body: 
+      allReceitas.isEmpty ? Center(child: CircularProgressIndicator() ,) :
+      SingleChildScrollView(
         child: Column(
         children: [
        // const Text("data"),
