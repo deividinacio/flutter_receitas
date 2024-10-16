@@ -30,8 +30,11 @@ class _ReceitasDetalhesState extends State<ReceitasDetalhes> {
           child: Column(children: [
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Image.network(widget.receita.strMealThumb, 
-              width: 250,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Image.network(widget.receita.strMealThumb, 
+                width: 300,
+                ),
               ),
             ),
             Padding(
