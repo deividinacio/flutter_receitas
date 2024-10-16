@@ -3,19 +3,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:loja_flutter/constants/app_styles.dart';
 import 'package:loja_flutter/models/receita_model.dart';
-import 'package:loja_flutter/receitas/receitas.dart';
 import 'package:loja_flutter/views/receitas_detalhes.dart';
 import 'package:http/http.dart' as http;
 import 'package:loja_flutter/views/widgets/category_widget.dart';
 
-class HomeApi extends StatefulWidget {
-  const HomeApi({super.key});
+class ReceitasHome extends StatefulWidget {
+  const ReceitasHome({super.key});
 
   @override
-  State<HomeApi> createState() => _HomeApiState();
+  State<ReceitasHome> createState() => _ReceitasHomeState();
 }
 
-class _HomeApiState extends State<HomeApi> {
+class _ReceitasHomeState extends State<ReceitasHome> {
   @override
   void initState() {
     

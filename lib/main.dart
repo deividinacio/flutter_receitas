@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:loja_flutter/views/home_api.dart';
+import 'package:loja_flutter/views/receitas_home.dart';
 
 
 void main() {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 58, 108, 183)),
         useMaterial3: true,
       ),
-      home: const HomeApi(),
+      home: const ReceitasHome(),
     );
   }
 }

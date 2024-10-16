@@ -25,18 +25,29 @@ class _ReceitasDetalhesState extends State<ReceitasDetalhes> {
         title: Text("Como fazer ?", 
         style: AppStyles.bigTitle,),
         ) ,
-        body: Column(children: [
-          Text(widget.receita.strMeal, 
-          style:  const TextStyle(
-          color:  Color.fromARGB(255, 0, 0, 0),
-          fontWeight: FontWeight.w700, 
+
+        body: SingleChildScrollView(
+          child: Column(children: [
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text(widget.receita.strMeal, 
+              style:  const TextStyle(
+              color:  Color.fromARGB(255, 0, 0, 0),
+              fontWeight: FontWeight.w700, 
+              fontSize: 20,
+              
+              ),
+              ),
+            ),
+            Image.network(widget.receita.strMealThumb, 
+            width: 250,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text(widget.receita.strInstructions),
+            )
+          ],
           ),
-          ),
-          Image.network(widget.receita.strMealThumb, 
-          width: 400,
-          ),
-          Text(widget.receita.strInstructions)
-        ],
         ),
     );
   }
