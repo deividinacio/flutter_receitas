@@ -24,52 +24,12 @@ class _ReceitasHomeState extends State<ReceitasHome> {
   //  getReceitas();
     super.initState();
   }
-
-
-  //List<Receita> allReceitas = [];
-
-  //getReceitas () async {
-    // Utilizar http  (pacote flutter)
-
-  //  List<Receita> receitas = await ReceitasController().getAllReceitas();
-
-    /*
-      String baseURL = "https://www.themealdb.com/api/json/v1/1/search.php?f=s";   //"https://www.themealdb.com/api/json/v1/1/lookup.php?i=53065";
-      
-      
-     try {
-        final response = await http.get(Uri.parse(baseURL));
-
-          if(response.statusCode == 200)
-          {
-            Map< String, dynamic> jsonData = json.decode(response.body);
-            List<dynamic> listaReceitas = jsonData['meals'];
-            allReceitas = listaReceitas.map((receita) => Receita.fromJson(receita)).toList();
-
-          } else {
-            print("Erro na consulta da API : ${response.statusCode}");
-          }
-     } catch (ex) {
-      print('Erro ao buscar receitas: $ex');
-     }
-     */
-      
-    
-     // setState(() {
-       //   allReceitas = receitas; //= listaReceitas.map((receita) => Receita.fromJson(receita)).toList();
-        //print(allReceitas[0].strMeal);
-     // }
-     
-      
-  //}
  
   @override
   Widget build(BuildContext context) {
 
     final receitaProvider = Provider.of<ReceitasProvider>(context);
     receitaProvider.fetchReceitas();
-
-
     return   Scaffold( 
       appBar:  AppBar(
       centerTitle: true,

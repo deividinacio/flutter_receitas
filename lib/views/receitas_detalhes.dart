@@ -32,13 +32,20 @@ class ReceitasDetalhes extends StatelessWidget {
           child: Column(children: [
             Stack(
               children: [
-              Image.network(receita.strMealThumb, 
-              height: 300,
-              width: double.infinity,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(140.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Image.network(receita.strMealThumb, 
+                  height: 300,
+                                 // width: double.infinity,
+                  ),
+                ),
               ),
 
               Positioned(
-                right: 30, // posicionamento do coração para favorito
+                right: 10,
+                top: 5.0, // posicionamento do coração para favorito
                 child: IconButton(
                   onPressed: (){
                     if(isFavorite)
@@ -51,7 +58,7 @@ class ReceitasDetalhes extends StatelessWidget {
                   icon: isFavorite ? Icon(Icons.favorite, 
                   color:  Color.fromARGB(255, 255, 0, 0)) : 
                   Icon(Icons.favorite_outline_outlined,
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: Color.fromARGB(255, 250, 0, 0),
                   ), 
                 ),
               ),
