@@ -81,10 +81,56 @@ class ReceitasDetalhes extends StatelessWidget {
               padding: const EdgeInsets.all(24.0),
               child: Text(receita.strInstructions,
               textAlign: TextAlign.justify,
+              style: TextStyle(
+              fontWeight: FontWeight.bold,  
+              ),
               ),
             ),
           
-            Text('Ingrediente : ${receita.strIngredient1}'),
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text('Ingredientes',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold
+              ),
+              ),
+            ),
+
+              Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text(' ${receita.getIngredientsWithMeasures().join('   ').replaceAll('[', '')
+              .replaceAll(']', '')
+              .replaceAll(',', ' ') }',
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+              fontWeight: FontWeight.bold,  
+              ),
+              
+              ),
+            ),
+
+            // Text('Medidas',
+            // textAlign: TextAlign.center,
+            // style: TextStyle(
+            // fontSize: 20,
+            // fontWeight: FontWeight.bold
+            // ),
+            // ),
+
+            // Padding(
+            //   padding: const EdgeInsets.all(24.0),
+            //   child: Text(' ${receita.getMeasures()}',
+            //   textAlign: TextAlign.justify,
+            //   style: TextStyle(
+            //   fontWeight: FontWeight.bold,  
+            //   ),
+              
+            //   ),
+            // ),
+           
+           
           ],
           ),
         ),

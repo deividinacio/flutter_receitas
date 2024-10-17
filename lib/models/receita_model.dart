@@ -1,6 +1,8 @@
 
 
 
+//import 'package:loja_flutter/models/ingrediente_model.dart';
+
 class Receita {
   
     final String  idMeal;
@@ -111,66 +113,190 @@ class Receita {
   required this.strSource, 
   required this.strImageSource, 
   required this.strCreativeCommonsConfirmed, 
-  required this.dateModified
+  required this.dateModified,
   });
+  
+  
+  //Retornar uma lista de ingredientes não vazios
+
+List<String> getIngredients() {
+    return [
+      strIngredient1,
+      strIngredient2,
+      strIngredient3,
+      strIngredient4,
+      strIngredient5,
+      strIngredient6,
+      strIngredient7,
+      strIngredient8,
+      strIngredient9,
+      strIngredient10,
+      strIngredient11,
+      strIngredient12,
+      strIngredient13,
+      strIngredient14,
+      strIngredient15,
+      strIngredient16,
+      strIngredient17,
+      strIngredient18,
+      strIngredient19,
+      strIngredient20,
+    ].where((ingredient) => ingredient.isNotEmpty).toList();
+  }
+
+  /// Retorna uma lista de medidas não vazias.
+  List<String> getMeasures() {
+    return [
+      strMeasure1,
+      strMeasure2,
+      strMeasure3,
+      strMeasure4,
+      strMeasure5,
+      strMeasure6,
+      strMeasure7,
+      strMeasure8,
+      strMeasure9,
+      strMeasure10,
+      strMeasure11,
+      strMeasure12,
+      strMeasure13,
+      strMeasure14,
+      strMeasure15,
+      strMeasure16,
+      strMeasure17,
+      strMeasure18,
+      strMeasure19,
+      strMeasure20,
+    ].where((measure) => measure.isNotEmpty).toList();
+  }
+
+
+  // concatena ingrediente com medida 
+
+List<String> getIngredientsWithMeasures() {
+  // Lista de ingredientes
+  final ingredientes = [
+    strIngredient1,
+    strIngredient2,
+    strIngredient3,
+    strIngredient4,
+    strIngredient5,
+    strIngredient6,
+    strIngredient7,
+    strIngredient8,
+    strIngredient9,
+    strIngredient10,
+    strIngredient11,
+    strIngredient12,
+    strIngredient13,
+    strIngredient14,
+    strIngredient15,
+    strIngredient16,
+    strIngredient17,
+    strIngredient18,
+    strIngredient19,
+    strIngredient20,
+  ];
+
+  // Lista de medidas
+  final medidas = [
+    strMeasure1,
+    strMeasure2,
+    strMeasure3,
+    strMeasure4,
+    strMeasure5,
+    strMeasure6,
+    strMeasure7,
+    strMeasure8,
+    strMeasure9,
+    strMeasure10,
+    strMeasure11,
+    strMeasure12,
+    strMeasure13,
+    strMeasure14,
+    strMeasure15,
+    strMeasure16,
+    strMeasure17,
+    strMeasure18,
+    strMeasure19,
+    strMeasure20,
+  ];
+
+  // Lista final de ingredientes e medidas concatenados.
+  List<String> resultado = [];
+
+  // Itera sobre ingredientes e medidas simultaneamente.
+  for (int i = 0; i < ingredientes.length; i++) {
+    if (ingredientes[i].isNotEmpty) {
+      // Se a medida for vazia, usa "a gosto".
+      String medida = medidas[i].isNotEmpty ? medidas[i] : 'a gosto';
+      resultado.add('${ingredientes[i]} - $medida');
+    }
+  }
+
+  return resultado;
+}
+
+
+
 
   factory Receita.fromJson(Map<String, dynamic> jsonReceita) {
-    return Receita(
-    idMeal: jsonReceita['idMeal'] ?? 'campo nulo', 
-    strMeal: jsonReceita['strMeal'] ?? 'campo nulo', 
-    strDrinkAlternate: jsonReceita['strDrinkAlternate'] ?? 'campo nulo', 
-    strCategory: jsonReceita['strCategory'] ?? 'campo nulo', 
-    strArea: jsonReceita['strArea'] ?? 'campo nulo', 
-    strInstructions: jsonReceita['strInstructions'] ?? 'campo nulo', 
-    strMealThumb: jsonReceita['strMealThumb'] ?? 'campo nulo', 
-    strTags: jsonReceita['strTags'] ?? 'Tags- Campo null' , 
-    strYoutube: jsonReceita['strYoutube'] ?? 'campo nulo' , 
-    strIngredient1: jsonReceita['strIngredient1'] ?? 'campo nulo', 
-    strIngredient2: jsonReceita['strIngredient2'] ?? 'campo nulo', 
-    strIngredient3: jsonReceita['strIngredient3'] ?? 'campo nulo', 
-    strIngredient4: jsonReceita['strIngredient4'] ?? 'campo nulo', 
-    strIngredient5: jsonReceita['strIngredient5'] ?? 'campo nulo', 
-    strIngredient6: jsonReceita['strIngredient6'] ?? 'campo nulo', 
-    strIngredient7: jsonReceita['strIngredient7'] ?? 'campo nulo', 
-    strIngredient8: jsonReceita['strIngredient8'] ?? 'campo nulo', 
-    strIngredient9: jsonReceita['strIngredient9'] ?? 'campo nulo', 
-    strIngredient10: jsonReceita['strIngredient10'] ?? 'campo nulo', 
-    strIngredient11: jsonReceita['strIngredient11'] ?? 'campo nulo', 
-    strIngredient12: jsonReceita['strIngredient12'] ?? 'campo nulo', 
-    strIngredient13: jsonReceita['strIngredient13'] ?? 'campo nulo', 
-    strIngredient14: jsonReceita['strIngredient14'] ?? 'campo nulo', 
-    strIngredient15: jsonReceita['strIngredient15'] ?? 'campo nulo', 
-    strIngredient16: jsonReceita['strIngredient16'] ?? 'campo nulo', 
-    strIngredient17: jsonReceita['strIngredient17'] ?? 'campo nulo', 
-    strIngredient18: jsonReceita['strIngredient18'] ?? 'campo nulo', 
-    strIngredient19: jsonReceita['strIngredient19'] ?? 'campo nulo', 
-    strIngredient20: jsonReceita['strIngredient20'] ?? 'campo nulo', 
-    strMeasure1: jsonReceita['strMeasure1'] ?? 'campo nulo', 
-    strMeasure2: jsonReceita['strMeasure2'] ?? 'campo nulo', 
-    strMeasure3: jsonReceita['strMeasure3'] ?? 'campo nulo' , 
-    strMeasure4: jsonReceita['strMeasure4'] ?? 'campo nulo', 
-    strMeasure5: jsonReceita['strMeasure5'] ?? 'campo nulo', 
-    strMeasure6: jsonReceita['strMeasure6'] ?? 'campo nulo', 
-    strMeasure7: jsonReceita['strMeasure7'] ?? 'campo nulo', 
-    strMeasure8: jsonReceita['strMeasure8'] ?? 'campo nulo', 
-    strMeasure9: jsonReceita['strMeasure9'] ?? 'campo nulo', 
-    strMeasure10: jsonReceita['strMeasure10'] ?? 'campo nulo', 
-    strMeasure11: jsonReceita['strMeasure11'] ?? 'campo nulo', 
-    strMeasure12: jsonReceita['strMeasure12'] ?? 'campo nulo', 
-    strMeasure13: jsonReceita['strMeasure13'] ?? 'campo nulo', 
-    strMeasure14: jsonReceita['strMeasure14'] ?? 'campo nulo', 
-    strMeasure15: jsonReceita['strMeasure15'] ?? 'campo nulo', 
-    strMeasure16: jsonReceita['strMeasure16'] ?? 'campo nulo', 
-    strMeasure17: jsonReceita['strMeasure17'] ?? 'campo nulo', 
-    strMeasure18: jsonReceita['strMeasure18'] ?? 'campo nulo', 
-    strMeasure19: jsonReceita['strMeasure19'] ?? 'campo nulo', 
-    strMeasure20: jsonReceita['strMeasure20'] ?? 'campo nulo', 
-    strSource: jsonReceita['strSource'] ?? 'campo nulo', 
-    strImageSource: jsonReceita['strImageSource'] ?? 'strImageSource - Campo null' , 
-    strCreativeCommonsConfirmed: jsonReceita['strCreativeCommonsConfirmed'] ?? 'strCreativeCommonsConfirmed - Campo null' , 
-    dateModified: jsonReceita['dateModified'] ?? 'dateModified - Campo null'
-    );
 
+    return Receita(
+    idMeal: jsonReceita['idMeal'] ?? '', 
+    strMeal: jsonReceita['strMeal'] ?? '', 
+    strDrinkAlternate: jsonReceita['strDrinkAlternate'] ?? '', 
+    strCategory: jsonReceita['strCategory'] ?? '', 
+    strArea: jsonReceita['strArea'] ?? '', 
+    strInstructions: jsonReceita['strInstructions'] ?? '', 
+    strMealThumb: jsonReceita['strMealThumb'] ?? '', 
+    strTags: jsonReceita['strTags'] ?? '', 
+    strYoutube: jsonReceita['strYoutube'] ?? '', 
+    strIngredient1: jsonReceita['strIngredient1'] ?? '', 
+    strIngredient2: jsonReceita['strIngredient2'] ?? '', 
+    strIngredient3: jsonReceita['strIngredient3'] ?? '', 
+    strIngredient4: jsonReceita['strIngredient4'] ?? '', 
+    strIngredient5: jsonReceita['strIngredient5'] ?? '', 
+    strIngredient6: jsonReceita['strIngredient6'] ?? '', 
+    strIngredient7: jsonReceita['strIngredient7'] ?? '', 
+    strIngredient8: jsonReceita['strIngredient8'] ?? '', 
+    strIngredient9: jsonReceita['strIngredient9'] ?? '', 
+    strIngredient10: jsonReceita['strIngredient10'] ?? '', 
+    strIngredient11: jsonReceita['strIngredient11'] ?? '', 
+    strIngredient12: jsonReceita['strIngredient12'] ?? '', 
+    strIngredient13: jsonReceita['strIngredient13'] ?? '', 
+    strIngredient14: jsonReceita['strIngredient14'] ?? '', 
+    strIngredient15: jsonReceita['strIngredient15'] ?? '', 
+    strIngredient16: jsonReceita['strIngredient16'] ?? '', 
+    strIngredient17: jsonReceita['strIngredient17'] ?? '', 
+    strIngredient18: jsonReceita['strIngredient18'] ?? '', 
+    strIngredient19: jsonReceita['strIngredient19'] ?? '', 
+    strIngredient20: jsonReceita['strIngredient20'] ?? '', 
+    strMeasure1: jsonReceita['strMeasure1'] ?? '', 
+    strMeasure2: jsonReceita['strMeasure2'] ?? '', 
+    strMeasure3: jsonReceita['strMeasure3'] ?? '', 
+    strMeasure4: jsonReceita['strMeasure4'] ?? '', 
+    strMeasure5: jsonReceita['strMeasure5'] ?? '', 
+    strMeasure6: jsonReceita['strMeasure6'] ?? '', 
+    strMeasure7: jsonReceita['strMeasure7'] ?? '', 
+    strMeasure8: jsonReceita['strMeasure8'] ?? '', 
+    strMeasure9: jsonReceita['strMeasure9'] ?? '', 
+    strMeasure10: jsonReceita['strMeasure10'] ?? '', 
+    strMeasure11: jsonReceita['strMeasure11'] ?? '', 
+    strMeasure12: jsonReceita['strMeasure12'] ?? '', 
+    strMeasure13: jsonReceita['strMeasure13'] ?? '', 
+    strMeasure14: jsonReceita['strMeasure14'] ?? '', 
+    strMeasure15: jsonReceita['strMeasure15'] ?? '', 
+    strMeasure16: jsonReceita['strMeasure16'] ?? '', 
+    strMeasure17: jsonReceita['strMeasure17'] ?? '', 
+    strMeasure18: jsonReceita['strMeasure18'] ?? '', 
+    strMeasure19: jsonReceita['strMeasure19'] ?? '', 
+    strMeasure20: jsonReceita['strMeasure20'] ?? '', 
+    strSource: jsonReceita['strSource'] ?? '', 
+    strImageSource: jsonReceita['strImageSource'] ?? '', 
+    strCreativeCommonsConfirmed: jsonReceita['strCreativeCommonsConfirmed'] ?? '', 
+    dateModified: jsonReceita['dateModified'] ?? ''
+  );
 
   }
 }
