@@ -21,17 +21,17 @@ class _ReceitasHomeState extends State<ReceitasHome> {
   void initState() {
     
     // chamada da api aqui
-    getReceitas();
+  //  getReceitas();
     super.initState();
   }
 
 
-  List<Receita> allReceitas = [];
+  //List<Receita> allReceitas = [];
 
-  getReceitas () async {
+  //getReceitas () async {
     // Utilizar http  (pacote flutter)
 
-    List<Receita> receitas = await ReceitasController().getAllReceitas();
+  //  List<Receita> receitas = await ReceitasController().getAllReceitas();
 
     /*
       String baseURL = "https://www.themealdb.com/api/json/v1/1/search.php?f=s";   //"https://www.themealdb.com/api/json/v1/1/lookup.php?i=53065";
@@ -55,12 +55,13 @@ class _ReceitasHomeState extends State<ReceitasHome> {
      */
       
     
-      setState(() {
-          allReceitas = receitas; //= listaReceitas.map((receita) => Receita.fromJson(receita)).toList();
+     // setState(() {
+       //   allReceitas = receitas; //= listaReceitas.map((receita) => Receita.fromJson(receita)).toList();
         //print(allReceitas[0].strMeal);
-      });
+     // }
+     
       
-  }
+  //}
  
   @override
   Widget build(BuildContext context) {
@@ -82,40 +83,60 @@ class _ReceitasHomeState extends State<ReceitasHome> {
 
       //SingleChildScrollView serve para dar a rolagem na tela 
       body: 
-      allReceitas.isEmpty ? Center(child: CircularProgressIndicator() ,) :
+      //allReceitas.isEmpty ? Center(child: CircularProgressIndicator() ,) :
       SingleChildScrollView(
-        child: Column(
-        children: [
-       // const Text("data"),
-        GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        primary: false,
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(15),
-        gridDelegate: const  SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, 
+        // utilizar futuro tipado (com tipo de dados )
+        child: FutureBuilder<List<Receita>>(
+          future: ReceitasController().getAllReceitas(),
+          builder: (context, snapshot) {
+            //snapshot  informação que vem do futuro
+            if(snapshot.connectionState == ConnectionState.waiting){
+              return Center(child: CircularProgressIndicator(),
+              );
+            } else if (!snapshot.hasData){
+                 return Center(child: Text("Sem informações"),
+              );
+            } else if (snapshot.hasError){
+              return Center(child: Text("Erro ao buscar informações"),
+              );
+            }
+            // a esclamação afirma que o valor não é nulo
+            List<Receita> allReceitas = snapshot.data!;
+
+            return Column(
+            children: [
+                   // const Text("data"),
+            GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            primary: false,
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(15),
+            gridDelegate: const  SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, 
+            ),
+            itemCount: allReceitas.length, // 8 quantidade de itens na grid
+            // receitas é minha lista do arquivo receitas.dart 
+            itemBuilder: (BuildContext context, int index)
+            {
+              return GestureDetector(
+                onTap: () {
+                  // mandando para pagina de detalhes da receita a description e imgprod
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) =>  ReceitasDetalhes(
+                      receita: allReceitas[index],
+                     
+                      ),
+                    ),
+                  );  
+                },
+                child:  CategoryWidget(receita: allReceitas[index],
+                )
+                );
+            }),
+                ],
+              );
+          }
         ),
-        itemCount: allReceitas.length, // 8 quantidade de itens na grid
-        // receitas é minha lista do arquivo receitas.dart 
-        itemBuilder: (BuildContext context, int index)
-        {
-          return GestureDetector(
-            onTap: () {
-              // mandando para pagina de detalhes da receita a description e imgprod
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) =>  ReceitasDetalhes(
-                  receita: allReceitas[index],
-                 
-                  ),
-                ),
-              );  
-            },
-            child:  CategoryWidget(receita: allReceitas[index],
-            )
-            );
-        }),
-            ],
-          ),
       )
 
     );
