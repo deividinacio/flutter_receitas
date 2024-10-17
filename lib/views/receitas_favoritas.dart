@@ -32,7 +32,10 @@ class ReceitasFavoritas extends StatelessWidget {
                   );  
         },
         child: ListTile(
-            leading: Image.network(receita.strMealThumb),
+            leading: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Image.network(receita.strMealThumb),
+            ),
             title:  Text(receita.strMeal),
             trailing: Icon(Icons.arrow_forward_ios_rounded),
           ),

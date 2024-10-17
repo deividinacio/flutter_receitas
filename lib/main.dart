@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_flutter/providers/favorite_provider.dart';
+import 'package:loja_flutter/providers/receitas_provider.dart';
 import 'package:loja_flutter/views/home_pageview.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => FavoriteProvider(),
+        ),
+        ChangeNotifierProvider(create: (context) => ReceitasProvider(),
         )
       ],
       child: MaterialApp(

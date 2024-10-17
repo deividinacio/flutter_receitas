@@ -2,12 +2,12 @@
 //import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:loja_flutter/constants/app_styles.dart';
-import 'package:loja_flutter/controller/receitas_controller.dart';
-import 'package:loja_flutter/models/receita_model.dart';
+import 'package:loja_flutter/providers/receitas_provider.dart';
 //import 'package:loja_flutter/views/home_pageview.dart';
 import 'package:loja_flutter/views/receitas_detalhes.dart';
 //import 'package:http/http.dart' as http;
 import 'package:loja_flutter/views/widgets/category_widget.dart';
+import 'package:provider/provider.dart';
 
 class ReceitasHome extends StatefulWidget {
   const ReceitasHome({super.key});
@@ -65,45 +65,24 @@ class _ReceitasHomeState extends State<ReceitasHome> {
  
   @override
   Widget build(BuildContext context) {
+
+    final receitaProvider = Provider.of<ReceitasProvider>(context);
+    receitaProvider.fetchReceitas();
+
+
     return   Scaffold( 
       appBar:  AppBar(
       centerTitle: true,
       title: Text("Receitas Binárias", style:AppStyles.bigTitle),
       
       ),
-
-      // botão flutuante
-      // floatingActionButton: FloatingActionButton(
-      //   child: const Text("data"),
-      //   onPressed: () async {
-        
-      //    await getReceitas();
-          
-      //   }),
-
       //SingleChildScrollView serve para dar a rolagem na tela 
       body: 
       //allReceitas.isEmpty ? Center(child: CircularProgressIndicator() ,) :
       SingleChildScrollView(
         // utilizar futuro tipado (com tipo de dados )
-        child: FutureBuilder<List<Receita>>(
-          future: ReceitasController().getAllReceitas(),
-          builder: (context, snapshot) {
-            //snapshot  informação que vem do futuro
-            if(snapshot.connectionState == ConnectionState.waiting){
-              return Center(child: CircularProgressIndicator(),
-              );
-            } else if (!snapshot.hasData){
-                 return Center(child: Text("Sem informações"),
-              );
-            } else if (snapshot.hasError){
-              return Center(child: Text("Erro ao buscar informações"),
-              );
-            }
-            // a esclamação afirma que o valor não é nulo
-            List<Receita> allReceitas = snapshot.data!;
-
-            return Column(
+        child: 
+          Column(
             children: [
                    // const Text("data"),
             GridView.builder(
@@ -114,7 +93,7 @@ class _ReceitasHomeState extends State<ReceitasHome> {
             gridDelegate: const  SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, 
             ),
-            itemCount: allReceitas.length, // 8 quantidade de itens na grid
+            itemCount: receitaProvider.allReceitas.length, // 8 quantidade de itens na grid
             // receitas é minha lista do arquivo receitas.dart 
             itemBuilder: (BuildContext context, int index)
             {
@@ -123,22 +102,18 @@ class _ReceitasHomeState extends State<ReceitasHome> {
                   // mandando para pagina de detalhes da receita a description e imgprod
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) =>  ReceitasDetalhes(
-                      receita: allReceitas[index],
+                      receita: receitaProvider.allReceitas[index],
                      
                       ),
                     ),
                   );  
                 },
-                child:  CategoryWidget(receita: allReceitas[index],
-                )
-                );
+                child:  CategoryWidget(receita: receitaProvider.allReceitas[index],
+                ));
             }),
-                ],
-              );
-          }
-        ),
-      )
-
+  
+            ],)
+    )
     );
   }
 }

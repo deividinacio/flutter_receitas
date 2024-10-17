@@ -15,7 +15,6 @@ class ReceitasDetalhes extends StatelessWidget {
 
   final Receita receita;
  
-
   @override
   Widget build(BuildContext context) {
     
