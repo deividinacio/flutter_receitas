@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:loja_flutter/constants/app_styles.dart';
-import 'package:loja_flutter/controller/favoritos_controller.dart';
+
 //import 'package:loja_flutter/controller/receitas_controller.dart';
 import 'package:loja_flutter/models/receita_model.dart';
+import 'package:loja_flutter/providers/favorite_provider.dart';
+import 'package:provider/provider.dart';
 
-class ReceitasDetalhes extends StatefulWidget {
+class ReceitasDetalhes extends StatelessWidget {
   const ReceitasDetalhes({
   super.key, 
   required this.receita, 
@@ -15,14 +17,11 @@ class ReceitasDetalhes extends StatefulWidget {
  
 
   @override
-  State<ReceitasDetalhes> createState() => _ReceitasDetalhesState();
-}
-
-bool isFavorite = false;
-
-class _ReceitasDetalhesState extends State<ReceitasDetalhes> {
-  @override
   Widget build(BuildContext context) {
+    
+    final favoriteProvider = Provider.of<FavoriteProvider>(context);
+    bool isFavorite = favoriteProvider.isFavorite(receita) ;
+
     return  Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -34,7 +33,7 @@ class _ReceitasDetalhesState extends State<ReceitasDetalhes> {
           child: Column(children: [
             Stack(
               children: [
-              Image.network(widget.receita.strMealThumb, 
+              Image.network(receita.strMealThumb, 
               height: 300,
               width: double.infinity,
               ),
@@ -43,12 +42,12 @@ class _ReceitasDetalhesState extends State<ReceitasDetalhes> {
                 right: 30, // posicionamento do coração para favorito
                 child: IconButton(
                   onPressed: (){
-
-                    //  além de mudar a cor do icone, a lista de favoritos deve ser populada
-                    FavoritosController().addToFavoriteList(widget.receita);
-                    setState(() {
-                      isFavorite = !isFavorite;
-                    });
+                    if(isFavorite)
+                    {
+                      favoriteProvider.removeReceitasFavoritas(receita);
+                    } else {
+                      favoriteProvider.addReceitasFavoritas(receita);
+                    }
                   },
                   icon: isFavorite ? Icon(Icons.favorite, 
                   color:  Color.fromARGB(255, 255, 0, 0)) : 
@@ -62,7 +61,7 @@ class _ReceitasDetalhesState extends State<ReceitasDetalhes> {
           
             Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Text(widget.receita.strMeal,
+              child: Text(receita.strMeal,
               textAlign: TextAlign.center, 
               style:  const TextStyle(
               color:  Color.fromARGB(255, 0, 0, 0),
@@ -74,12 +73,12 @@ class _ReceitasDetalhesState extends State<ReceitasDetalhes> {
             ),
             Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Text(widget.receita.strInstructions,
+              child: Text(receita.strInstructions,
               textAlign: TextAlign.justify,
               ),
             ),
           
-            Text('Ingrediente : ${widget.receita.strIngredient1}'),
+            Text('Ingrediente : ${receita.strIngredient1}'),
           ],
           ),
         ),

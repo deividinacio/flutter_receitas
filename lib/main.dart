@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:loja_flutter/providers/favorite_provider.dart';
 import 'package:loja_flutter/views/home_pageview.dart';
+import 'package:provider/provider.dart';
 
 //import 'package:loja_flutter/views/receitas_home.dart';
 
@@ -15,14 +17,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-       
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 58, 108, 183)),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => FavoriteProvider(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+         
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 58, 108, 183)),
+          useMaterial3: true,
+        ),
+        home: const HomePageview(),
       ),
-      home: const HomePageview(),
     );
   }
 }
