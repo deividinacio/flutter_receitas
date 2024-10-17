@@ -1,10 +1,12 @@
 
-import 'dart:convert';
+//import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:loja_flutter/constants/app_styles.dart';
+import 'package:loja_flutter/controller/receitas_controller.dart';
 import 'package:loja_flutter/models/receita_model.dart';
+//import 'package:loja_flutter/views/home_pageview.dart';
 import 'package:loja_flutter/views/receitas_detalhes.dart';
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 import 'package:loja_flutter/views/widgets/category_widget.dart';
 
 class ReceitasHome extends StatefulWidget {
@@ -23,10 +25,15 @@ class _ReceitasHomeState extends State<ReceitasHome> {
     super.initState();
   }
 
+
   List<Receita> allReceitas = [];
 
   getReceitas () async {
     // Utilizar http  (pacote flutter)
+
+    List<Receita> receitas = await ReceitasController().getAllReceitas();
+
+    /*
       String baseURL = "https://www.themealdb.com/api/json/v1/1/search.php?f=s";   //"https://www.themealdb.com/api/json/v1/1/lookup.php?i=53065";
       
       
@@ -45,10 +52,11 @@ class _ReceitasHomeState extends State<ReceitasHome> {
      } catch (ex) {
       print('Erro ao buscar receitas: $ex');
      }
+     */
       
     
       setState(() {
-          allReceitas; //= listaReceitas.map((receita) => Receita.fromJson(receita)).toList();
+          allReceitas = receitas; //= listaReceitas.map((receita) => Receita.fromJson(receita)).toList();
         //print(allReceitas[0].strMeal);
       });
       

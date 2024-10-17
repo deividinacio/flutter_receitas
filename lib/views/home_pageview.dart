@@ -27,6 +27,14 @@ void onPageChanged( int index)
       currentPage = index;
     });
 }
+
+@override
+  void dispose() {
+    // metodo para limpar a memória
+    pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
